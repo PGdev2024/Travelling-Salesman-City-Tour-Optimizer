@@ -1,70 +1,49 @@
-"""
-Distance calculation module for TSP solver.
-Handles distance calculations between geographic coordinates.
-"""
-
-import math
-from collections import namedtuple
-
-
+# Check the distance calculation implementation in distance.py
 def haversine_distance(lat1, lon1, lat2, lon2):
     """
-    Calculate the great-circle distance in kilometers between two points 
-    on the Earth's surface using the Haversine formula.
+    Calculate the great circle distance between two points 
+    on the earth (specified in decimal degrees)
     
-    Args:
-        lat1, lon1: Latitude and longitude of point 1 (in degrees)
-        lat2, lon2: Latitude and longitude of point 2 (in degrees)
-        
-    Returns:
-        float: Distance in kilometers
+    Returns distance in kilometers
     """
-    # Convert latitude and longitude from degrees to radians
-    lat1_rad = math.radians(lat1)
-    lon1_rad = math.radians(lon1)
-    lat2_rad = math.radians(lat2)
-    lon2_rad = math.radians(lon2)
+    from math import radians, sin, cos, sqrt, atan2
     
-    # Haversine formula components
-    dlat = lat2_rad - lat1_rad
-    dlon = lon2_rad - lon1_rad
+    # Convert decimal degrees to radians
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
     
-    # Haversine formula calculation
-    a = math.sin(dlat/2)**2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(dlon/2)**2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+    # Haversine formula
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1 
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1-a)) 
     
-    # Earth's radius in kilometers
-    R = 6371.0
+    # Radius of earth in kilometers
+    r = 6371
     
-    # Calculate distance
-    distance = R * c
-    
-    return distance
-
+    # Distance in km
+    return r * c
 
 def calculate_distance_matrix(places):
     """
-    Calculate the distance matrix for a list of places using the Haversine formula.
+    Calculate distance matrix between all places.
     
     Args:
-        places (list): List of Place namedtuples with 'lat' and 'lon' attributes
+        places (list): List of Place namedtuples
         
     Returns:
-        list: 2D distance matrix where dist[i][j] is the distance from place i to place j
+        list: 2D distance matrix
     """
-    # Initialize the distance matrix with zeros
     n = len(places)
     dist_matrix = [[0.0 for _ in range(n)] for _ in range(n)]
     
-    # Calculate distances between all pairs of places
     for i in range(n):
-        for j in range(i+1, n):  # Only calculate upper triangle (distances are symmetric)
-            distance = haversine_distance(
+        for j in range(i+1, n):
+            dist = haversine_distance(
                 places[i].lat, places[i].lon,
                 places[j].lat, places[j].lon
             )
-            # Fill both entries since distance is symmetric
-            dist_matrix[i][j] = distance
-            dist_matrix[j][i] = distance
-    
+            # Store distance in both directions
+            dist_matrix[i][j] = dist
+            dist_matrix[j][i] = dist
+            
     return dist_matrix
