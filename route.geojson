@@ -1,0 +1,86 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.2945,
+            48.8584
+          ],
+          [
+            2.295,
+            48.8738
+          ],
+          [
+            2.3376,
+            48.8606
+          ],
+          [
+            2.3499,
+            48.853
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "EiffelTower",
+        "order": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2945,
+          48.8584
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ArcdeTriomphe",
+        "order": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.295,
+          48.8738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "LouvreMuseum",
+        "order": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3376,
+          48.8606
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Notre-Dame",
+        "order": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3499,
+          48.853
+        ]
+      }
+    }
+  ]
+}
